@@ -1,5 +1,5 @@
 import unittest
-from Classes.logger_master import Logger_master
+from Classes.enviromesh_logger import Enviromesh_logger
 """
 [summary] 
 *TDD implementation testing of our master_logger class
@@ -14,11 +14,11 @@ class Test_logger_master(unittest.TestCase):
     """
 
     def setUp(self):
-        test_loggerObj = Logger_master()
+        test_loggerObj = Enviromesh_logger()
 
     def tearDown(self) -> None:
-        # return super().tearDown()
         pass
+        # return super().tearDown()
 
     def test_i2c_addresses(self):
         self.assertEqual(True, False)
