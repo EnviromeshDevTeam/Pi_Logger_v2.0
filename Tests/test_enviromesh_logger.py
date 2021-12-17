@@ -6,7 +6,7 @@ from Classes.enviromesh_logger import Enviromesh_logger
 """
 
 
-class Test_logger_master(unittest.TestCase):
+class test_enviromesh_logger(unittest.TestCase):
     """
     [summary]
     * setUp activates before each test method
@@ -14,29 +14,28 @@ class Test_logger_master(unittest.TestCase):
     """
 
     def setUp(self):
-        test_loggerObj = Enviromesh_logger()
+        self.test_loggerObj = Enviromesh_logger()
 
     def tearDown(self) -> None:
         pass
         # return super().tearDown()
 
-    def test_i2c_addresses(self):
-        self.assertEqual(True, False)
-
     def test_temp(self):
-        self.assertEqual(True, False)
+        self.assertTrue(0 <= self.test_loggerObj.getTemp() >= 40)
 
     def test_humidity(self):
-        self.assertEqual(True, False)
+        self.assertTrue(0 <= self.test_loggerObj.getHumidity() >= 100)
 
     def test_co2(self):
-        self.assertEqual(True, False)
+        self.assertTrue(400 <= self.test_loggerObj.getCO2() >= 8192)
 
     def test_TVOC(self):
-        self.assertEqual(True, False)
+        self.assertTrue(0 <= self.test_loggerObj.getTVOC() >= 8192)
 
+    # TODO: Once you find return values of this Analog sensor then implement test on the typle of ints
     def test_moisture(self):
-        self.assertEqual(True, False)
+        pass
+        # self.assertTrue(True, False)
 
 
 if __name__ == '__main__':
