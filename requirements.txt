@@ -1,0 +1,8 @@
+adafruit_ads1x15==1.0.2
+Adafruit_Blinka==6.16.0
+adafruit_bme280==1.0.1
+adafruit_ccs811==0.2.1
+adafruit_circuitpython_ads1x15==2.2.10
+adafruit_circuitpython_bme280==2.6.7
+adafruit_circuitpython_ccs811==1.3.5
+
