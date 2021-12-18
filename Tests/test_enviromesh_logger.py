@@ -1,5 +1,9 @@
-import unittest
 from Classes.enviromesh_logger import Enviromesh_logger
+import unittest
+import sys
+sys.path.append("..")
+
+
 """
 [summary] 
 *TDD implementation testing of our master_logger class
@@ -20,22 +24,27 @@ class test_enviromesh_logger(unittest.TestCase):
         pass
         # return super().tearDown()
 
+    # Test temp recording in normal range
     def test_temp(self):
-        self.assertTrue(0 <= self.test_loggerObj.getTemp() >= 40)
+        self.assertTrue(self.test_loggerObj.getTemp() in range(0, 50))
 
+    # Test humidity recording in normal range
     def test_humidity(self):
-        self.assertTrue(0 <= self.test_loggerObj.getHumidity() >= 100)
+        self.assertTrue(self.test_loggerObj.getHumidity() in range(0, 100))
 
+    # Test co2 recording in normal range
     def test_co2(self):
-        self.assertTrue(400 <= self.test_loggerObj.getCO2() >= 8192)
+        self.assertTrue(0 <= self.test_loggerObj.getCO2() <= 8192)
 
+    # Test Contaminant levels recording in normal range
     def test_TVOC(self):
-        self.assertTrue(0 <= self.test_loggerObj.getTVOC() >= 8192)
+        self.assertTrue(0 <= self.test_loggerObj.getTVOC() <= 1187)
 
-    # TODO: Once you find return values of this Analog sensor then implement test on the typle of ints
+    # Test Moisture levels recording in normal range
     def test_moisture(self):
-        pass
-        # self.assertTrue(True, False)
+        _moistValue, _moistVoltage = self.test_loggerObj.getMoisture()
+        self.assertTrue(0 < _moistValue <= 1000)
+        self.assertTrue(0 < _moistVoltage <= 5)
 
 
 if __name__ == '__main__':
