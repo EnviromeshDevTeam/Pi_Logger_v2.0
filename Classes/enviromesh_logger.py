@@ -1,6 +1,7 @@
 # Analag/Serial in import symbiotic relationship with the ADC
 from adafruit_ads1x15.analog_in import AnalogIn
 # Analog to Digital Converter
+import adafruit
 import adafruit_ads1x15.ads1115 as ADC
 # Temperature/Humidity/Barometric Pressure/Altitude Sensing
 import adafruit_bme280.basic as BME280
@@ -8,6 +9,7 @@ import adafruit_bme280.basic as BME280
 from adafruit_ccs811 import CCS811
 import busio  # busio responsible for bus communication such as i2c and SPI comms
 import board  # to reference pins and locations of the microcontroller(pi)
+import datetime as dt
 import time  # used for allowing set pause times between script actions
 import sys
 sys.path.append("..")
@@ -29,7 +31,6 @@ adc_GAIN: int = 1
 '''
 [summary]
 Enviromesh_logger class in charge of logging all our different environment variables
-
 '''
 
 
@@ -85,3 +86,9 @@ class Enviromesh_logger:
         _moistValue, _moistV = self.analog0_moist.value, self.analog0_moist.voltage
         print(f"Moisture: {_moistValue} with a voltage of {_moistV}")
         return (_moistValue, _moistV)
+
+    def getDT2Second(self):
+        _currTime: dt.datetime = dt.datetime.datetime.now()
+        _roundedTime: dt.datetime = _currTime - \
+            dt.timedelta(microseconds=_currTime.microseconds)
+        return _roundedTime
