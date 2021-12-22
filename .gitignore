@@ -1,7 +1,8 @@
 #vscode settings
 .vscode
 
-
+#for debugging
+test.py
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
