@@ -8,6 +8,7 @@ import adafruit_bme280.basic as BME280
 from adafruit_ccs811 import CCS811
 import busio  # busio responsible for bus communication such as i2c and SPI comms
 import board  # to reference pins and locations of the microcontroller(pi)
+import datetime as dt
 import time  # used for allowing set pause times between script actions
 import sys
 sys.path.append("..")
@@ -29,7 +30,6 @@ adc_GAIN: int = 1
 '''
 [summary]
 Enviromesh_logger class in charge of logging all our different environment variables
-
 '''
 
 
@@ -69,19 +69,31 @@ class Enviromesh_logger:
         return round(self.bme280.humidity)
 
     def getCO2(self) -> int:
+        #The ccs811 chip will send an 0 or 1 boolean if ready, we wait for this signal before retrieving value
         while not self.ccs811.data_ready:
             pass
         print(f"CO2: {self.ccs811.eco2}")
         return self.ccs811.eco2
 
     def getTVOC(self) -> int:
+        #The ccs811 chip will send an 0 or 1 boolean if ready, we wait for this signal before retrieving value
         while not self.ccs811.data_ready:
             pass
         print(f"TVOC: {self.ccs811.tvoc}")
         return self.ccs811.tvoc
 
-    # TODO: Change Return Type
-    def getMoisture(self):
+    def getMoisture(self)->int:
         _moistValue, _moistV = self.analog0_moist.value, self.analog0_moist.voltage
         print(f"Moisture: {_moistValue} with a voltage of {_moistV}")
-        return (_moistValue, _moistV)
+        return _moistValue
+
+    def getDT2Second(self)->str:
+        """[summary]
+        Get Current Datetime rounded to whole second
+        Returns:
+            str: formatted YEAR:MONTH:DAY:HOUR:MINUTE:SECOND #We Will design backend to easily parse this format
+        """        
+        return dt.datetime.utcnow().strftime('%Y%m%d%H%M%S')
+    
+    def getPayload(self)->str:
+        return f"'temp':'{self.getTemp()}','humidity':'{self.getHumidity()}','CO2':'{self.getCO2()}','TVOC':'{self.getTVOC()}','Soil_Moisture':'{self.getMoisture()}','Timestamp':'{self.getDT2Second()}'"
