@@ -1,6 +1,6 @@
 from Classes.enviromesh_logger import Enviromesh_logger
 from Classes.mqttclient import MQTTCLIENT
-import time
+import time  # used for allowing set pause times between script actions
 import sys
 sys.path.append("..")
 
@@ -21,7 +21,7 @@ if __name__ == '__main__':
         # ? @param payload - JSON Object of message
         mqtt_Client.client.publish(
             topic=str(mqtt_Client),
-            payload=Env_logger.getPayload(),
+            payload=Env_logger.getPayload(str(mqtt_Client)),
             QoS=0 #Changed to 0, Was working at 1 will test next iteration
         )
         time.sleep(15)  # Reset loop after 15 seconds

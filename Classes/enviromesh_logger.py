@@ -8,8 +8,8 @@ import adafruit_bme280.basic as BME280
 from adafruit_ccs811 import CCS811
 import busio  # busio responsible for bus communication such as i2c and SPI comms
 import board  # to reference pins and locations of the microcontroller(pi)
+import json
 import datetime as dt
-import time  # used for allowing set pause times between script actions
 import sys
 sys.path.append("..")
 
@@ -95,5 +95,20 @@ class Enviromesh_logger:
         """        
         return dt.datetime.utcnow().strftime('%Y%m%d%H%M%S')
     
-    def getPayload(self)->str:
-        return f"'temp':'{self.getTemp()}','humidity':'{self.getHumidity()}','CO2':'{self.getCO2()}','TVOC':'{self.getTVOC()}','Soil_Moisture':'{self.getMoisture()}','Timestamp':'{self.getDT2Second()}'"
+    def getPayload(self, _deviceName: str)->str:
+        payloadDict = {
+            'timestamp':self.getDT2Second(),
+            'device':_deviceName,
+            'data':{
+                'temperature':self.getTemp(),
+                'humidity':self.getHumidity(),
+                'CO2':self.getCO2(),
+                'TVOC':self.getTVOC(),
+                'moisture':self.getMoisture(),
+            }
+        }
+        return json.dumps(payloadDict)
+        
+        
+        
+        # return f"'temp':'{self.getTemp()}','humidity':'{self.getHumidity()}','CO2':'{self.getCO2()}','TVOC':'{self.getTVOC()}','Soil_Moisture':'{self.getMoisture()}','Timestamp':'{self.getDT2Second()}'"
