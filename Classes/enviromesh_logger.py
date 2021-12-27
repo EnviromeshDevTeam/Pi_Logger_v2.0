@@ -93,7 +93,7 @@ class Enviromesh_logger:
         Returns:
             str: formatted YEAR:MONTH:DAY:HOUR:MINUTE:SECOND #We Will design backend to easily parse this format
         """        
-        return dt.datetime.utcnow().strftime('%Y%m%d%H%M%S')
+        return dt.datetime.utcnow().strftime('%Y-%m-%d %H:%M:%S')
     
     def getPayload(self, _deviceName: str)->str:
         payloadDict = {
