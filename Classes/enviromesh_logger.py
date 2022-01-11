@@ -8,8 +8,7 @@ import adafruit_bme280.basic as BME280
 from adafruit_ccs811 import CCS811
 import busio  # busio responsible for bus communication such as i2c and SPI comms
 import board  # to reference pins and locations of the microcontroller(pi)
-import json
-import datetime as dt
+from datetime import datetime
 import sys
 sys.path.append("..")
 
@@ -34,7 +33,6 @@ Enviromesh_logger class in charge of logging all our different environment varia
 
 
 class Enviromesh_logger:
-
     def __init__(self) -> None:
 
         # * Our Method of communication protocol to communicate data to the Pi
@@ -49,7 +47,7 @@ class Enviromesh_logger:
         self.bme280 = BME280.Adafruit_BME280_I2C(
             self.i2c_bus, address=BME280_addr)
 
-        # * CO2/Contimants sensor mapping to bus and confirming its hardcoded registry address
+        # * CO2/Contaminants sensor mapping to bus and confirming its hardcoded registry address
         self.ccs811 = CCS811(self.i2c_bus, address=CSS811_addr)
 
         # * Our Analogue Digital converter parsing in the i2c bus to use
@@ -93,22 +91,14 @@ class Enviromesh_logger:
         Returns:
             str: formatted YEAR:MONTH:DAY:HOUR:MINUTE:SECOND #We Will design backend to easily parse this format
         """        
-        return dt.datetime.utcnow().strftime('%Y-%m-%d %H:%M:%S')
+        return datetime.utcnow().strftime('%Y-%m-%d %H:%M:%S')
     
-    def getPayload(self, _deviceName: str)->str:
+    def getCurrPayload(self)->dict:
         payloadDict = {
-            'timestamp':self.getDT2Second(),
-            'device':_deviceName,
-            'data':{
                 'temperature':self.getTemp(),
                 'humidity':self.getHumidity(),
                 'CO2':self.getCO2(),
                 'TVOC':self.getTVOC(),
-                'moisture':self.getMoisture(),
-            }
+                'moisture':self.getMoisture()
         }
-        return json.dumps(payloadDict)
-        
-        
-        
-        # return f"'temp':'{self.getTemp()}','humidity':'{self.getHumidity()}','CO2':'{self.getCO2()}','TVOC':'{self.getTVOC()}','Soil_Moisture':'{self.getMoisture()}','Timestamp':'{self.getDT2Second()}'"
+        return payloadDict

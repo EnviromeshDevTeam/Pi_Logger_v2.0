@@ -4,13 +4,6 @@ import os
 
 load_dotenv(find_dotenv())
 
-# TODO: TEST IF DOTENV WORKS
-
-# * Uses a library that searches each parent until root and until a .env is found
-# ! User will have to custom fillout the env.example template with their own AWS Thing credentials
-# TODO Post an env.example to the git repo
-
-
 #TODO: See if we can get this class to fully inherit from MQTTLib or AWSIoTMQTTClient
 class MQTTCLIENT():
     def __init__(self) -> None:
@@ -50,6 +43,5 @@ class MQTTCLIENT():
         self.client.configureConnectDisconnectTimeout = int(
             os.getenv("DEVICE1TIMEOUT"))
 
-
         self.client.configureMQTTOperationTimeout = int(os.getenv(
-            "DEVICE1OPTIMEOUT"))  # Operation timeout after 5
+            "DEVICE1OTIMEOUT"))  # Operation timeout after 5

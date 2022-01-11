@@ -1,5 +1,8 @@
 # Pi_Logger_v2.0
+
 Revamped Pi Logger: Built Around Test-Driven Development, Rasp-Pi with Arduino Sensors, AWS IOT Core, AWS Lambda to store to our AWS RDS SQL
+
+<img src="./AWS_enviromesh-stack.png">
 
 Using Raspberry Pi communication bus I2C to communicate with our sensors (BME280, CCS811, ADC-Analogue_Soil_Moisture_Sensor) to gather the data.
 
