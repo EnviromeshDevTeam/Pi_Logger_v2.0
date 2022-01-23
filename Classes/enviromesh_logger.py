@@ -95,10 +95,10 @@ class Enviromesh_logger:
     
     def getCurrPayload(self)->dict:
         payloadDict = {
-                'temperature':self.getTemp(),
-                'humidity':self.getHumidity(),
-                'CO2':self.getCO2(),
-                'TVOC':self.getTVOC(),
-                'moisture':self.getMoisture()
+                '1':self.getTemp(),
+                '2':self.getHumidity(),
+                '3':self.getCO2(),
+                '4':self.getTVOC(),
+                '5':self.getMoisture()
         }
         return payloadDict
